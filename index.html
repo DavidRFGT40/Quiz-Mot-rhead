@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body{
+                background-image: url(https://images7.alphacoders.com/512/512554.jpg);
+                background-size: cover;
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+            }
+
+            @font-face {
+                font-family: FontAce;
+                src: url(Fontes/motorhead/motorhead.ttf);
+            }
+
+            h1{
+                color: #fff;
+                font-family: FontAce;
+            }
+            .quiz-container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            #pergunta {
+                border: 2px;
+                font-size: 24px;
+                margin-bottom: 20px;
+                color: #fff;
+                font-family: FontAce;
+                background-color: #ffffff34;
+                border-radius: 30px;
+            }
+            #opcoes{
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            #resultado{
+                color: #ffffff ;
+                font-family: FontAce;
+                font-size: 1.4em;
+            }
+            /* .imagem{
+               margin-left: 75%;
+            }
+
+            .imagem2{
+                top: 60%;
+            } */
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .correto {
+            background-color: #8BC34A;
+        }
+        .incorreto { 
+            background-color:  #FF6772;
+        }
+    </style>
+<title>QUIZ - PERGUNTAS E RESPOSTAS</title>
+</head>
+<body>
+    
+    <div class="quiz-container">
+        <h1>Quiz de Perguntas e Respostas</h1>
+        <div id="pergunta"></div>
+        <div id="opcoes"></div>
+        <div id="resultado"></div>
+    </div>
+    
+    <script>
+        const perguntas = [
+            {
+                pergunta:"Quem é o vocalista da banda Motörhead?",
+                opcoes:["Dave Mustaine", "Fred Mercury", "Lemmy Kilmister","James Hetfield"],
+                resposta:"Lemmy Kilmister",
+            },
+            {
+                pergunta:"Qual o país da banda?" , 
+                opcoes: ["México","EUA","Inglaterra","Brasil"],
+                resposta:"Inglaterra"
+            }, 
+            {
+                pergunta: "Quem foi o primeiro guitarrista do Motörhread?" ,
+                opcoes: ["Eddie Clarke", "Eddie Van Halen", "Eddie Vedder", "Stevie Ray Vaughan"],
+                resposta:"Eddie Clarke"
+            },
+            {
+                pergunta: "Quem foi o primeiro baterista do Motörhead?" ,
+                opcoes: ["Lars Ulrich", "Nick Menza", "Phil Taylor", "Gustavo Lima"],
+                resposta:"Phil Taylor"
+            },
+            {
+                pergunta: "Em que ano surgiu a banda?" ,
+                opcoes: ["1975", "1969", "1971", "2005"],
+                resposta:"1975"
+            }
+
+            //Adicione mais perguntas aqui
+
+        ];
+
+        const perguntaElemento = document.getElementById("pergunta");
+        const opcoesElemento = document.getElementById("opcoes");
+        const resultadoElemento = document.getElementById("resultado");
+
+        let indicePerguntaAtual = 0;
+
+        function carregaPergunta() {
+            const perguntaAtual = perguntas [indicePerguntaAtual];
+            
+            perguntaElemento.textContent = perguntaAtual.pergunta;
+
+            opcoesElemento.innerHTML = "";
+
+            perguntaAtual.opcoes.forEach(opcao => {
+
+                const botao = document.createElement("button");
+                botao.textContent = opcao;
+                botao.addEventListener("click" , () => verificarResposta(opcao));
+                opcoesElemento.appendChild(botao);
+            });
+        }
+
+        function verificarResposta(respostaSelecionada) {
+            const perguntaAtual = perguntas[indicePerguntaAtual];
+            if (respostaSelecionada === perguntaAtual.resposta){
+                resultadoElemento.textContent = "Resposta Correta!";
+                resultadoElemento.className = "correto";
+            } else{
+                resultadoElemento.textContent = "Resposta incorreta. A resposta correta é: " +  perguntaAtual.resposta;
+                resultadoElemento.className = "incorreto";
+            }
+            indicePerguntaAtual++;
+            if (indicePerguntaAtual<perguntas.length) {
+                setTimeout(carregaPergunta, 2000);
+            }else {
+                resultadoElemento.textContent = "Parabéns (eu acho)";
+                resultadoElemento.className = "";
+            }
+        }
+    
+        carregaPergunta();
+    </script>
+
+       <!-- <div class="imagem"> <img src="Imagens/pngegg.png" alt="SnaggleTooth" width="300px" height="300px"></div>
+       <div class="imagem2"><img src="Imagens/motorhead-snaggletooth-netent-slot-machine-game-videoslots-0a4e95c002d9b422b38c51d354e98bb8.png" alt="SnaggleTooth" width="300px" height="300px"></div> -->
+</body>
+</html>
